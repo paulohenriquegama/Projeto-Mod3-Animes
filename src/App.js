@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Button from './Button';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -66,11 +67,65 @@ export default class App extends React.Component {
           nome:"One-Punch Man",
           img:'https://bit.ly/2UYLeQr',
         },
-      ]
-    }
+      ],
+      nomeAnime:"",
+      imgAnime:"",
+      editando: false,
+      indexEditando:null,
+    };
   }
+
+  onSubmit = (editar) => {
+    editar.preventDefault();
+
+    const{animes, editando, indexEditando, nomeAnime, imgAnime} = this.state;
+
+    if(editando){
+      const animesAtualizados = animes.map((anime,index) => {
+        if(indexEditando === index){
+          anime.nome = nomeAnime;
+          anime.img = imgAnime;
+        }
+
+        return anime;
+      });
+
+      this.setState({
+        animes: animesAtualizados,
+        indexEditando: null,
+        editando:false,
+      });
+
+    }else{
+      this.setState({
+        animes: [
+          ...animes,
+          {
+            nome: nomeAnime,
+            img: imgAnime, 
+          }
+        ]
+      });
+    };
+
+    this.setState({
+      nomeAnime: "",
+      imgAnime:"",
+    });
+
+  }
+
+  deletar = (index) =>{
+    const {animes} = this.state;
+    this.setState({
+      animes: animes.filter((anime,i) => i!==index),
+    });
+
+  }
+
+
   render() {
-    const { animes } = this.state
+    const { animes } = this.state;
 
     return (
       <div className="container">
@@ -80,9 +135,13 @@ export default class App extends React.Component {
             {animes.map(anime => (
               <div className="card" Key={anime.id}>
                   <h3 className="card-titulo">{anime.nome}</h3>
-                  <img  src={anime.img} alt={anime.nome}></img>
+                  <img src={anime.img} alt={anime.nome}></img>  
+                  <Button name="Visualizar"/>
+                  
               </div>  
+              
             ))}
+            
           </div>
         </main>
       </div>
