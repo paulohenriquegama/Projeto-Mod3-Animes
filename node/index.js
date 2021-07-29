@@ -41,16 +41,6 @@ let animes = [
 const getAnimesValidos = () => animes.filter(Boolean);
 const getAnimebyID = id => getAnimesValidos().find(anime => anime.id === id);
 const getAnimeIndexbyID = id => getAnimesValidos().findIndex(anime => anime.id === id);
-// const getAnimebyID = id => {
-//   res.send("Entro aqui")
-//   if(getAnimesValidos){
-//     getFilmesValidos().find(function(filme){
-//       filme.id===id
-//     })
-//   }else{
-//     res.send("Filme não encontrado!!")
-//   }
-// };
 
 
 app.get('/',(req,res)=> {
@@ -80,13 +70,12 @@ app.post("/animes",(req,res) => {
       message:  "Personagem Inválido. Certifique-se que o body da requisição possui 'nome' e 'imagemURL'."
     })
   }else{
-
-  anime.id = animes.length + 1;
-  let data = animes
-  anime = {id: data.id, ...anime}
-  animes.push(anime);
-  res.send(`Anime adicionado com sucesso. Id do filme ${anime.id}` )
-  }
+    anime.id = animes.length + 1;
+    let data = animes;
+    anime = {id: data.id, ...anime};
+    animes.push(anime);
+    res.send(`Anime adicionado com sucesso. Id do filme ${anime.id}` )
+  };
 });
 
 
@@ -147,7 +136,7 @@ app.delete("/animes/:id", (req,res) => {
     return;
   };
 
-  animeDeletado = animes[animeIndex].nome;
+  let animeDeletado = animes[animeIndex].nome;
   // delete animes[animeIndex];
   animes.splice(animeIndex,1);
 
