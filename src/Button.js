@@ -4,9 +4,10 @@ import './Button.css';
 function Button(props){
 
   const {name} = props;
+  const {efeito} = props;
 
   return(
-    <button className="button">{name}</button>
+    <button className="button" onChange={efeito}>{name}</button>
   )
 }
 
