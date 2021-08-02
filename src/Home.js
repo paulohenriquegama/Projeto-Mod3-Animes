@@ -135,9 +135,11 @@ export default function Home() {
             <div className="card" Key={anime.id}>
               <h3 className="card-titulo">{anime.nome}</h3>
               <img src={anime.img} alt={anime.nome}></img>
-              <Button name="Visualizar" />
-              <Button name="Editar" onCLick = {onSubmit}/>
-              <Button name="Deletar" onChange = {deletar}/>
+              <div className="bloco-botoes">
+                <Button name="Visualizar" />
+                <Button name="Editar" onCLick = {onSubmit}/>
+                <Button name="Deletar" onChange = {deletar}/>
+              </div>
             </div>
           ))}
         </div>
